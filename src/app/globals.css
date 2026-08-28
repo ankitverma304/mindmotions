@@ -1,0 +1,297 @@
+@import "tailwindcss";
+
+/* next-themes toggles a `.dark` class on <html>, so point Tailwind's
+   `dark:` variant at that class instead of the default prefers-color-scheme
+   media query — otherwise dark: utilities would ignore the in-app toggle. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------------- */
+/* Design tokens                                                          */
+/* Every religion theme + dark mode defines the same variable set, so     */
+/* components never branch on religion — they just use the tokens.        */
+/* ---------------------------------------------------------------------- */
+
+:root {
+  --color-bg: #fbf9f6;
+  --color-surface: #ffffff;
+  --color-surface-2: #f4efe8;
+  --color-text: #1f1b16;
+  --color-muted: #6b645c;
+  --color-primary: #b45309;
+  --color-primary-foreground: #ffffff;
+  --color-accent: #7c5a2e;
+  --color-border: #e7e1d8;
+  --color-ring: #b45309;
+  --pattern-opacity: 0.035;
+}
+
+:root[data-religion="hinduism"] {
+  --color-bg: #fff8ee;
+  --color-surface: #ffffff;
+  --color-surface-2: #fbeed3;
+  --color-text: #2b1d0e;
+  --color-muted: #7a6a54;
+  --color-primary: #d9722c;
+  --color-primary-foreground: #ffffff;
+  --color-accent: #c9a227;
+  --color-border: #f0e2c8;
+  --color-ring: #d9722c;
+}
+
+:root[data-religion="islam"] {
+  --color-bg: #f3faf7;
+  --color-surface: #ffffff;
+  --color-surface-2: #e2f2ec;
+  --color-text: #0e2621;
+  --color-muted: #55786f;
+  --color-primary: #0f6f5c;
+  --color-primary-foreground: #ffffff;
+  --color-accent: #b8985a;
+  --color-border: #dceee7;
+  --color-ring: #0f6f5c;
+}
+
+:root[data-religion="sikhism"] {
+  --color-bg: #f2f6fc;
+  --color-surface: #ffffff;
+  --color-surface-2: #e3eaf7;
+  --color-text: #101b2e;
+  --color-muted: #566276;
+  --color-primary: #1b4b93;
+  --color-primary-foreground: #ffffff;
+  --color-accent: #d9a400;
+  --color-border: #dee6f4;
+  --color-ring: #1b4b93;
+}
+
+:root[data-religion="christianity"] {
+  --color-bg: #f7f9fc;
+  --color-surface: #ffffff;
+  --color-surface-2: #e7ecf5;
+  --color-text: #101826;
+  --color-muted: #57647a;
+  --color-primary: #1e3a5f;
+  --color-primary-foreground: #ffffff;
+  --color-accent: #b8860b;
+  --color-border: #e1e7f0;
+  --color-ring: #1e3a5f;
+}
+
+:root[data-religion="jainism"] {
+  --color-bg: #fffdf7;
+  --color-surface: #ffffff;
+  --color-surface-2: #f5eed9;
+  --color-text: #241d0f;
+  --color-muted: #7a705a;
+  --color-primary: #a67c00;
+  --color-primary-foreground: #ffffff;
+  --color-accent: #8b5e00;
+  --color-border: #efe7d2;
+  --color-ring: #a67c00;
+}
+
+:root[data-religion="buddhism"] {
+  --color-bg: #fff9f2;
+  --color-surface: #ffffff;
+  --color-surface-2: #f7e8d4;
+  --color-text: #26190c;
+  --color-muted: #7c6a54;
+  --color-primary: #b5651d;
+  --color-primary-foreground: #ffffff;
+  --color-accent: #8a6d3b;
+  --color-border: #f0e1cc;
+  --color-ring: #b5651d;
+}
+
+/* Dark mode: base neutral */
+:root.dark {
+  --color-bg: #14120f;
+  --color-surface: #201c17;
+  --color-surface-2: #2a241c;
+  --color-text: #f3efe9;
+  --color-muted: #a79e92;
+  --color-primary: #e0a458;
+  --color-primary-foreground: #14120f;
+  --color-accent: #c9a227;
+  --color-border: #322c24;
+  --color-ring: #e0a458;
+  --pattern-opacity: 0.06;
+}
+
+:root.dark[data-religion="hinduism"] {
+  --color-bg: #1c1509;
+  --color-surface: #241b0e;
+  --color-surface-2: #2f2413;
+  --color-text: #fbf1dd;
+  --color-muted: #c2ae8b;
+  --color-primary: #f0954a;
+  --color-primary-foreground: #1c1509;
+  --color-accent: #e0be5c;
+  --color-border: #3a2d16;
+  --color-ring: #f0954a;
+}
+
+:root.dark[data-religion="islam"] {
+  --color-bg: #071613;
+  --color-surface: #0d211c;
+  --color-surface-2: #122b24;
+  --color-text: #e7f5f0;
+  --color-muted: #9bc2b6;
+  --color-primary: #2fa98c;
+  --color-primary-foreground: #071613;
+  --color-accent: #d4b876;
+  --color-border: #17332b;
+  --color-ring: #2fa98c;
+}
+
+:root.dark[data-religion="sikhism"] {
+  --color-bg: #070c16;
+  --color-surface: #0d1526;
+  --color-surface-2: #121c32;
+  --color-text: #e9effa;
+  --color-muted: #9aa8c4;
+  --color-primary: #4a78c4;
+  --color-primary-foreground: #070c16;
+  --color-accent: #e6bc33;
+  --color-border: #182238;
+  --color-ring: #4a78c4;
+}
+
+:root.dark[data-religion="christianity"] {
+  --color-bg: #060a12;
+  --color-surface: #0c1526;
+  --color-surface-2: #101c32;
+  --color-text: #e9eef7;
+  --color-muted: #97a3bb;
+  --color-primary: #4c7099;
+  --color-primary-foreground: #060a12;
+  --color-accent: #d8a93a;
+  --color-border: #17223a;
+  --color-ring: #4c7099;
+}
+
+:root.dark[data-religion="jainism"] {
+  --color-bg: #14110a;
+  --color-surface: #1d1811;
+  --color-surface-2: #262015;
+  --color-text: #f5eedd;
+  --color-muted: #b7aa8c;
+  --color-primary: #d2a73b;
+  --color-primary-foreground: #14110a;
+  --color-accent: #c08f3e;
+  --color-border: #2e271a;
+  --color-ring: #d2a73b;
+}
+
+:root.dark[data-religion="buddhism"] {
+  --color-bg: #180f07;
+  --color-surface: #21150c;
+  --color-surface-2: #2b1d11;
+  --color-text: #f6ecdd;
+  --color-muted: #c0ac8f;
+  --color-primary: #e08a45;
+  --color-primary-foreground: #180f07;
+  --color-accent: #c9a45a;
+  --color-border: #362513;
+  --color-ring: #e08a45;
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-surface-2: var(--color-surface-2);
+  --color-text: var(--color-text);
+  --color-muted: var(--color-muted);
+  --color-primary: var(--color-primary);
+  --color-primary-foreground: var(--color-primary-foreground);
+  --color-accent: var(--color-accent);
+  --color-border: var(--color-border);
+  --color-ring: var(--color-ring);
+
+  --font-sans: var(--font-inter), var(--font-noto-devanagari), ui-sans-serif, sans-serif;
+  --font-devanagari: var(--font-noto-devanagari), var(--font-inter), sans-serif;
+  --font-devanagari-serif: var(--font-noto-serif-devanagari), var(--font-noto-devanagari), serif;
+  --font-urdu: var(--font-noto-nastaliq), serif;
+  --font-gurmukhi: var(--font-noto-gurmukhi), var(--font-inter), sans-serif;
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Language-specific reading styles, used inside content areas only. */
+.lang-sa,
+.lang-hi-serif {
+  font-family: var(--font-devanagari-serif);
+}
+.lang-ur {
+  font-family: var(--font-urdu);
+  direction: rtl;
+  text-align: right;
+  line-height: 2.1;
+}
+.lang-pa {
+  font-family: var(--font-gurmukhi);
+}
+
+/* Subtle, respectful religion-inspired background texture. Intentionally
+   faint — geometry only, never figurative religious imagery. */
+.pattern-bg {
+  position: relative;
+}
+.pattern-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--pattern-opacity);
+  background-image: radial-gradient(circle at 1px 1px, var(--color-primary) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.focus-ring {
+  outline: none;
+}
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-primary) 30%, transparent);
+}
+
+/* Custom scrollbar to match theme, kept subtle */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
